@@ -3,7 +3,7 @@
 /// A singly-linked lazy list.
 enum List<Element> {
 	case Nil
-	case Node(Element, List<Element>[]?)
+	case Node(Element, List<Element>[])
 	
 	/// Nil case.
 	init() {
@@ -12,12 +12,12 @@ enum List<Element> {
 	
 	/// List of one element.
 	init(_ element: Element) {
-		self = .Node(element, nil)
+		self = .Node(element, [ List.Nil ])
 	}
 	
 	/// Prepending.
 	init(_ element: Element, rest: List<Element>) {
-		self = .Node(element, [rest])
+		self = .Node(element, [ rest ])
 	}
 	
 	/// N-ary list from a generator.
@@ -42,8 +42,11 @@ extension List : Sequence {
 		var list = self
 		return GeneratorOf {
 			switch list {
-			case .Nil: return nil
-			case let .Node(x, _): return x
+			case let .Node(x, next):
+				list = next[0]
+				return x
+			case .Nil:
+				return nil
 			}
 		}
 	}
