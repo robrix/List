@@ -51,3 +51,12 @@ extension List : Sequence {
 		}
 	}
 }
+
+
+/// Lists conform to Printable.
+extension List : Printable {
+	var description: String {
+		let joined = join(" ", map(self) { "\($0)" })
+		return "(\(joined))"
+	}
+}
