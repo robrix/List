@@ -34,3 +34,17 @@ enum List<Element> {
 		self = List(generator: elements.generate())
 	}
 }
+
+
+/// Lists conform to Sequence.
+extension List : Sequence {
+	func generate() -> GeneratorOf<Element> {
+		var list = self
+		return GeneratorOf {
+			switch list {
+			case .Nil: return nil
+			case let .Node(x, _): return x
+			}
+		}
+	}
+}
