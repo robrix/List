@@ -3,7 +3,7 @@
 /// A singly-linked lazy list.
 enum List<Element> {
 	case Nil
-	case Node(Element, List<Element>[])
+	case Node(Element, [List<Element>])
 	
 	/// Nil case.
 	init() {
