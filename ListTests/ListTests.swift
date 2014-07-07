@@ -13,4 +13,9 @@ class ListTests: XCTestCase {
 		let b = List(elements: [4, 5, 6])
 		XCTAssert((a ++ b).description == "(1 2 3 4 5 6)")
 	}
+	
+	func testNilConversion() {
+		let x: List<Int> = nil
+		XCTAssert(x.description == "()")
+	}
 }

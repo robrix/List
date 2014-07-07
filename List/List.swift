@@ -73,3 +73,11 @@ func ++ <Element> (left: List<Element>, right: List<Element>) -> List<Element> {
 	let terminate = reduce(right, reduce(left, identity, swap), swap)
 	return terminate(List.Nil)
 }
+
+
+/// Lists conform to NilLiteralConvertible.
+extension List : NilLiteralConvertible {
+	static func convertFromNilLiteral() -> List {
+		return .Nil
+	}
+}
