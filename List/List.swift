@@ -2,9 +2,6 @@
 
 /// A singly-linked lazy list.
 enum List<Element> {
-	case Nil
-	case Node(Element, [List<Element>])
-	
 	/// Nil case.
 	init() {
 		self = .Nil
@@ -33,6 +30,12 @@ enum List<Element> {
 	init<S: SequenceType where S.Generator.Element == Element>(elements: S) {
 		self = List(generator: elements.generate())
 	}
+
+
+	// MARK: Cases
+
+	case Node(Element, [List<Element>])
+	case Nil
 }
 
 
