@@ -1,7 +1,7 @@
 //  Copyright (c) 2014 Rob Rix. All rights reserved.
 
 /// A singly-linked lazy list.
-enum List<Element>: NilLiteralConvertible {
+enum List<Element>: NilLiteralConvertible, Printable {
 	// MARK: Constructors
 
 	/// Nil case.
@@ -37,6 +37,14 @@ enum List<Element>: NilLiteralConvertible {
 	}
 
 
+	// MARK: Printable
+
+	var description: String {
+		let joined = join(" ", map(self) { "\($0)" })
+		return "(\(joined))"
+	}
+
+
 	// MARK: Cases
 
 	case Cons(Element, Box<List>)
@@ -57,15 +65,6 @@ extension List: SequenceType {
 				return nil
 			}
 		}
-	}
-}
-
-
-/// Lists conform to Printable.
-extension List: Printable {
-	var description: String {
-		let joined = join(" ", map(self) { "\($0)" })
-		return "(\(joined))"
 	}
 }
 
