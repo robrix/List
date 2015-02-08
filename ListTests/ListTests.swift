@@ -27,4 +27,8 @@ class ListTests: XCTestCase {
 	func testFilter() {
 		XCTAssertEqual(Array(List(elements: [0, 1, 2, 3]).filter { $0 % 2 == 0 }), [0, 2])
 	}
+
+	func testReduce() {
+		XCTAssertEqual(List(elements: [1, 2, 3, 4, 5]).reduce(0, +), 15)
+	}
 }
