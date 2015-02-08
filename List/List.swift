@@ -21,7 +21,7 @@ enum List<Element> {
 	}
 	
 	/// N-ary list from a generator.
-	init<G : Generator where G.Element == Element>(var generator: G) {
+	init<G: GeneratorType where G.Element == Element>(var generator: G) {
 		if let next: Element = generator.next() {
 			self = .Node(next, [ List(generator: generator) ])
 		} else {
@@ -30,14 +30,14 @@ enum List<Element> {
 	}
 	
 	/// N-ary list from a sequence.
-	init<S : Sequence where S.GeneratorType.Element == Element>(elements: S) {
+	init<S: SequenceType where S.Generator.Element == Element>(elements: S) {
 		self = List(generator: elements.generate())
 	}
 }
 
 
-/// Lists conform to Sequence.
-extension List : Sequence {
+/// Lists conform to SequenceType.
+extension List: SequenceType {
 	func generate() -> GeneratorOf<Element> {
 		var list = self
 		return GeneratorOf {
@@ -54,7 +54,7 @@ extension List : Sequence {
 
 
 /// Lists conform to Printable.
-extension List : Printable {
+extension List: Printable {
 	var description: String {
 		let joined = join(" ", map(self) { "\($0)" })
 		return "(\(joined))"
@@ -62,7 +62,7 @@ extension List : Printable {
 }
 
 
-operator infix ++ { associativity right precedence 145 }
+infix operator ++ { associativity right precedence 145 }
 
 /// Concatenation of lists.
 func ++ <Element> (left: List<Element>, right: List<Element>) -> List<Element> {
@@ -76,8 +76,8 @@ func ++ <Element> (left: List<Element>, right: List<Element>) -> List<Element> {
 
 
 /// Lists conform to NilLiteralConvertible.
-extension List : NilLiteralConvertible {
-	static func convertFromNilLiteral() -> List {
-		return .Nil
+extension List: NilLiteralConvertible {
+	init(nilLiteral: ()) {
+		self.init()
 	}
 }
