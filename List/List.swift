@@ -11,18 +11,18 @@ enum List<Element> {
 	
 	/// List of one element.
 	init(_ element: Element) {
-		self = .Cons(element, [ List.Nil ])
+		self = .Cons(element, Box(nil))
 	}
 	
 	/// Prepending.
 	init(_ element: Element, rest: List) {
-		self = .Cons(element, [ rest ])
+		self = .Cons(element, Box(rest))
 	}
 	
 	/// N-ary list from a generator.
 	init<G: GeneratorType where G.Element == Element>(var generator: G) {
 		if let next: Element = generator.next() {
-			self = .Cons(next, [ List(generator: generator) ])
+			self = .Cons(next, Box(List(generator: generator)))
 		} else {
 			self = .Nil
 		}
@@ -36,7 +36,7 @@ enum List<Element> {
 
 	// MARK: Cases
 
-	case Cons(Element, [List])
+	case Cons(Element, Box<List>)
 	case Nil
 }
 
@@ -48,7 +48,7 @@ extension List: SequenceType {
 		return GeneratorOf {
 			switch list {
 			case let .Cons(x, next):
-				list = next[0]
+				list = next.value
 				return x
 			case .Nil:
 				return nil
@@ -85,3 +85,8 @@ extension List: NilLiteralConvertible {
 		self.init()
 	}
 }
+
+
+// MARK: - Imports
+
+import Box
