@@ -15,7 +15,7 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 	}
 	
 	/// Prepending.
-	public init(_ element: Element, rest: List) {
+	public init(_ element: Element, _ rest: List) {
 		self = Cons(element, Box(rest))
 	}
 	
@@ -73,7 +73,7 @@ infix operator ++ { associativity right precedence 145 }
 /// Concatenation of lists.
 public func ++ <Element> (left: List<Element>, right: List<Element>) -> List<Element> {
 	func swap(into: List<Element> -> List<Element>, each: Element) -> List<Element> -> List<Element> {
-		return { into(List(each, rest: $0)) }
+		return { into(List(each, $0)) }
 	}
 	let terminate = reduce(right, reduce(left, { $0 }, swap), swap)
 	return terminate(nil)
