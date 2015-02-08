@@ -21,11 +21,7 @@ enum List<Element> {
 	
 	/// N-ary list from a generator.
 	init<G: GeneratorType where G.Element == Element>(var generator: G) {
-		if let next: Element = generator.next() {
-			self = Cons(next, Box(List(generator: generator)))
-		} else {
-			self = nil
-		}
+		self = generator.next().map { Cons($0, Box(List(generator: generator))) } ?? nil
 	}
 	
 	/// N-ary list from a sequence.
