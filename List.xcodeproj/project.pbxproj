@@ -11,6 +11,8 @@
 		D40D2689195F198500BC535B /* List.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D40D267D195F198500BC535B /* List.framework */; };
 		D40D2690195F198500BC535B /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D268F195F198500BC535B /* ListTests.swift */; };
 		D40D269A195F1A5200BC535B /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D2699195F1A5200BC535B /* List.swift */; };
+		D4F9F9E01A87029C00B7071E /* Box.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F9F9DF1A87029C00B7071E /* Box.framework */; };
+		D4F9F9E11A8702B700B7071E /* Box.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F9F9DF1A87029C00B7071E /* Box.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +33,7 @@
 		D40D268E195F198500BC535B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D40D268F195F198500BC535B /* ListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTests.swift; sourceTree = "<group>"; };
 		D40D2699195F1A5200BC535B /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
+		D4F9F9DF1A87029C00B7071E /* Box.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Box.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4F9F9E01A87029C00B7071E /* Box.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +50,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D40D2689195F198500BC535B /* List.framework in Frameworks */,
+				D4F9F9E11A8702B700B7071E /* Box.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				D40D2682195F198500BC535B /* List.h */,
+				D40D2699195F1A5200BC535B /* List.swift */,
 				D40D2680195F198500BC535B /* Supporting Files */,
 			);
 			path = List;
@@ -82,7 +88,7 @@
 		D40D2680195F198500BC535B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D40D2699195F1A5200BC535B /* List.swift */,
+				D4F9F9DF1A87029C00B7071E /* Box.framework */,
 				D40D2681195F198500BC535B /* Info.plist */,
 			);
 			name = "Supporting Files";

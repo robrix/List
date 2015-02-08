@@ -1,83 +1,113 @@
 //  Copyright (c) 2014 Rob Rix. All rights reserved.
 
 /// A singly-linked lazy list.
-enum List<Element> {
-	case Nil
-	case Node(Element, [List<Element>])
-	
-	/// Nil case.
-	init() {
-		self = .Nil
+public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
+	// MARK: Constructors
+
+	/// Constructs an empty list.
+	public init() {
+		self = Nil
 	}
 	
 	/// List of one element.
-	init(_ element: Element) {
-		self = .Node(element, [ List.Nil ])
+	public init(_ element: Element) {
+		self = Cons(Box(element), Box(nil))
 	}
 	
 	/// Prepending.
-	init(_ element: Element, rest: List<Element>) {
-		self = .Node(element, [ rest ])
+	public init(_ element: Element, _ rest: List) {
+		self = Cons(Box(element), Box(rest))
 	}
 	
 	/// N-ary list from a generator.
-	init<G : Generator where G.Element == Element>(var generator: G) {
-		if let next: Element = generator.next() {
-			self = .Node(next, [ List(generator: generator) ])
-		} else {
-			self = .Nil
-		}
+	public init<G: GeneratorType where G.Element == Element>(var generator: G) {
+		self = generator.next().map { List($0, List(generator: generator)) } ?? nil
 	}
 	
 	/// N-ary list from a sequence.
-	init<S : Sequence where S.GeneratorType.Element == Element>(elements: S) {
+	public init<S: SequenceType where S.Generator.Element == Element>(elements: S) {
 		self = List(generator: elements.generate())
 	}
-}
 
 
-/// Lists conform to Sequence.
-extension List : Sequence {
-	func generate() -> GeneratorOf<Element> {
-		var list = self
-		return GeneratorOf {
-			switch list {
-			case let .Node(x, next):
-				list = next[0]
-				return x
-			case .Nil:
-				return nil
-			}
+	// MARK: Properties
+
+	/// Returns the head element, or `nil` if the receiver is empty.
+	public var head: Element? {
+		return analysis { head, _ in head }
+	}
+
+	/// Returns the tail, i.e. the (possibly empty) list of elements following the head element.
+	public var tail: List {
+		return analysis { _, tail in tail } ?? nil
+	}
+
+	/// `true` if the receiver is empty, `false` otherwise.
+	public var isEmpty: Bool {
+		return analysis { _, _ in false } ?? true
+	}
+
+
+	/// Case analysis.
+	///
+	/// If the receiver is empty, returns `nil`. Otherwise returns the result of applying `f` to the receiver’s head & tail.
+	public func analysis<T>(f: (Element, List) -> T) -> T? {
+		switch self {
+		case let Cons(head, tail):
+			return f(head.value, tail.value)
+
+		case Nil:
+			return nil
 		}
 	}
-}
 
 
-/// Lists conform to Printable.
-extension List : Printable {
-	var description: String {
+	// MARK: NilLiteralConvertible
+
+	public init(nilLiteral: ()) {
+		self.init()
+	}
+
+
+	// MARK: Printable
+
+	public var description: String {
 		let joined = join(" ", map(self) { "\($0)" })
 		return "(\(joined))"
 	}
+
+
+	// MARK: SequenceType
+
+	public func generate() -> GeneratorOf<Element> {
+		var list = self
+		return GeneratorOf {
+			list.analysis {
+				list = $1
+				return $0
+			} ?? nil
+		}
+	}
+
+
+	// MARK: Cases
+
+	case Cons(Box<Element>, Box<List>)
+	case Nil
 }
 
 
-operator infix ++ { associativity right precedence 145 }
+infix operator ++ { associativity right precedence 145 }
 
 /// Concatenation of lists.
-func ++ <Element> (left: List<Element>, right: List<Element>) -> List<Element> {
-	let identity: List<Element> -> List<Element> = { $0 }
+public func ++ <Element> (left: List<Element>, right: List<Element>) -> List<Element> {
 	func swap(into: List<Element> -> List<Element>, each: Element) -> List<Element> -> List<Element> {
-		return { (x: List<Element>) -> List<Element> in into(List(each, rest: x)) }
+		return { into(List(each, $0)) }
 	}
-	let terminate = reduce(right, reduce(left, identity, swap), swap)
-	return terminate(List.Nil)
+	return reduce(right, reduce(left, { $0 }, swap), swap)(nil)
 }
 
 
-/// Lists conform to NilLiteralConvertible.
-extension List : NilLiteralConvertible {
-	static func convertFromNilLiteral() -> List {
-		return .Nil
-	}
-}
+// MARK: - Imports
+
+import Box
