@@ -47,6 +47,7 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 		return analysis { _, _ in false } ?? true
 	}
 
+
 	/// Case analysis.
 	///
 	/// If the receiver is empty, returns `nil`. Otherwise returns the result of applying `f` to the receiver’s head & tail.
