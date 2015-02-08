@@ -1,7 +1,7 @@
 //  Copyright (c) 2014 Rob Rix. All rights reserved.
 
 /// A singly-linked lazy list.
-enum List<Element>: NilLiteralConvertible, Printable {
+enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 	// MARK: Constructors
 
 	/// Nil case.
@@ -45,15 +45,8 @@ enum List<Element>: NilLiteralConvertible, Printable {
 	}
 
 
-	// MARK: Cases
+	// MARK: SequenceType
 
-	case Cons(Element, Box<List>)
-	case Nil
-}
-
-
-/// Lists conform to SequenceType.
-extension List: SequenceType {
 	func generate() -> GeneratorOf<Element> {
 		var list = self
 		return GeneratorOf {
@@ -66,6 +59,12 @@ extension List: SequenceType {
 			}
 		}
 	}
+
+
+	// MARK: Cases
+
+	case Cons(Element, Box<List>)
+	case Nil
 }
 
 
