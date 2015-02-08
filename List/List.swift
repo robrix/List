@@ -1,45 +1,45 @@
 //  Copyright (c) 2014 Rob Rix. All rights reserved.
 
 /// A singly-linked lazy list.
-enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
+public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 	// MARK: Constructors
 
 	/// Nil case.
-	init() {
+	public init() {
 		self = Nil
 	}
 	
 	/// List of one element.
-	init(_ element: Element) {
+	public init(_ element: Element) {
 		self = Cons(element, Box(nil))
 	}
 	
 	/// Prepending.
-	init(_ element: Element, rest: List) {
+	public init(_ element: Element, rest: List) {
 		self = Cons(element, Box(rest))
 	}
 	
 	/// N-ary list from a generator.
-	init<G: GeneratorType where G.Element == Element>(var generator: G) {
+	public init<G: GeneratorType where G.Element == Element>(var generator: G) {
 		self = generator.next().map { Cons($0, Box(List(generator: generator))) } ?? nil
 	}
 	
 	/// N-ary list from a sequence.
-	init<S: SequenceType where S.Generator.Element == Element>(elements: S) {
+	public init<S: SequenceType where S.Generator.Element == Element>(elements: S) {
 		self = List(generator: elements.generate())
 	}
 
 
 	// MARK: NilLiteralConvertible
 
-	init(nilLiteral: ()) {
+	public init(nilLiteral: ()) {
 		self.init()
 	}
 
 
 	// MARK: Printable
 
-	var description: String {
+	public var description: String {
 		let joined = join(" ", map(self) { "\($0)" })
 		return "(\(joined))"
 	}
@@ -47,7 +47,7 @@ enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 
 	// MARK: SequenceType
 
-	func generate() -> GeneratorOf<Element> {
+	public func generate() -> GeneratorOf<Element> {
 		var list = self
 		return GeneratorOf {
 			switch list {
