@@ -42,6 +42,16 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 		}
 	}
 
+	public var tail: List {
+		switch self {
+		case let Cons(_, tail):
+			return tail.value
+
+		case Nil:
+			return nil
+		}
+	}
+
 
 	// MARK: NilLiteralConvertible
 
