@@ -18,4 +18,17 @@ class ListTests: XCTestCase {
 		let x: List<Int> = nil
 		XCTAssert(x.description == "()")
 	}
+
+
+	func testMap() {
+		XCTAssertEqual(Array(List<Int>(0, List(1, List(2))).map(toString)), ["0", "1", "2"])
+	}
+
+	func testFilter() {
+		XCTAssertEqual(Array(List(elements: [0, 1, 2, 3]).filter { $0 % 2 == 0 }), [0, 2])
+	}
+
+	func testReduce() {
+		XCTAssertEqual(List(elements: [1, 2, 3, 4, 5]).reduce(0, +), 15)
+	}
 }

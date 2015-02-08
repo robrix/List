@@ -62,6 +62,24 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 	}
 
 
+	// MARK: Higher-order functions
+
+	public func map<T>(transform: Element -> T) -> List<T> {
+		return analysis { List<T>(transform($0), $1.map(transform)) } ?? nil
+	}
+
+	public func filter(includeElement: Element -> Bool) -> List {
+		return analysis {
+			let rest = $1.filter(includeElement)
+			return includeElement($0) ? List($0, rest) : rest
+		} ?? nil
+	}
+
+	public func reduce<Result>(initial: Result, combine: (Result, Element) -> Result) -> Result {
+		return analysis { $1.reduce(combine(initial, $0), combine) } ?? initial
+	}
+
+
 	// MARK: NilLiteralConvertible
 
 	public init(nilLiteral: ()) {
@@ -72,7 +90,7 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 	// MARK: Printable
 
 	public var description: String {
-		let joined = join(" ", map(self) { "\($0)" })
+		let joined = join(" ", lazy(self).map(toString))
 		return "(\(joined))"
 	}
 
@@ -104,7 +122,7 @@ public func ++ <Element> (left: List<Element>, right: List<Element>) -> List<Ele
 	func swap(into: List<Element> -> List<Element>, each: Element) -> List<Element> -> List<Element> {
 		return { into(List(each, $0)) }
 	}
-	return reduce(right, reduce(left, { $0 }, swap), swap)(nil)
+	return right.reduce(left.reduce({ $0 }, swap), swap)(nil)
 }
 
 
