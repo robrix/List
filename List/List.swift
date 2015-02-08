@@ -2,6 +2,8 @@
 
 /// A singly-linked lazy list.
 enum List<Element> {
+	// MARK: Constructors
+
 	/// Nil case.
 	init() {
 		self = .Nil
