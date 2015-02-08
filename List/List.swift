@@ -30,6 +30,19 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 	}
 
 
+	// MARK: Properties
+
+	public var head: Element? {
+		switch self {
+		case let Cons(head, _):
+			return head.value
+
+		case Nil:
+			return nil
+		}
+	}
+
+
 	// MARK: NilLiteralConvertible
 
 	public init(nilLiteral: ()) {
