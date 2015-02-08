@@ -71,7 +71,7 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 infix operator ++ { associativity right precedence 145 }
 
 /// Concatenation of lists.
-func ++ <Element> (left: List<Element>, right: List<Element>) -> List<Element> {
+public func ++ <Element> (left: List<Element>, right: List<Element>) -> List<Element> {
 	func swap(into: List<Element> -> List<Element>, each: Element) -> List<Element> -> List<Element> {
 		return { into(List(each, rest: $0)) }
 	}
