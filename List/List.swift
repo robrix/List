@@ -15,7 +15,7 @@ enum List<Element> {
 	}
 	
 	/// Prepending.
-	init(_ element: Element, rest: List<Element>) {
+	init(_ element: Element, rest: List) {
 		self = .Cons(element, [ rest ])
 	}
 	
@@ -36,7 +36,7 @@ enum List<Element> {
 
 	// MARK: Cases
 
-	case Cons(Element, [List<Element>])
+	case Cons(Element, [List])
 	case Nil
 }
 
