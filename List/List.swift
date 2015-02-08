@@ -68,6 +68,13 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 		return analysis { List<T>(transform($0), $1.map(transform)) } ?? nil
 	}
 
+	public func filter(includeElement: Element -> Bool) -> List {
+		return analysis {
+			let rest = $1.filter(includeElement)
+			return includeElement($0) ? List($0, rest) : rest
+		} ?? nil
+	}
+
 
 	// MARK: NilLiteralConvertible
 
