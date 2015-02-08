@@ -32,6 +32,7 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 
 	// MARK: Properties
 
+	/// Returns the head element, or `nil` if the receiver is empty.
 	public var head: Element? {
 		switch self {
 		case let Cons(head, _):
@@ -42,6 +43,7 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 		}
 	}
 
+	/// Returns the tail, i.e. the (possibly empty) list of elements following the head element.
 	public var tail: List {
 		switch self {
 		case let Cons(_, tail):
@@ -52,6 +54,7 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 		}
 	}
 
+	/// `true` if the receiver is empty, `false` otherwise.
 	public var isEmpty: Bool {
 		switch self {
 		case Nil:
@@ -62,6 +65,9 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 		}
 	}
 
+	/// Case analysis.
+	///
+	/// If the receiver is empty, returns `nil`. Otherwise returns the result of applying `f` to the receiver’s head & tail.
 	public func analysis<T>(f: (Element, List) -> T) -> T? {
 		switch self {
 		case let Cons(head, tail):
