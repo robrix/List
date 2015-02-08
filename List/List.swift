@@ -122,7 +122,7 @@ public func ++ <Element> (left: List<Element>, right: List<Element>) -> List<Ele
 	func swap(into: List<Element> -> List<Element>, each: Element) -> List<Element> -> List<Element> {
 		return { into(List(each, $0)) }
 	}
-	return reduce(right, reduce(left, { $0 }, swap), swap)(nil)
+	return right.reduce(left.reduce({ $0 }, swap), swap)(nil)
 }
 
 
