@@ -71,11 +71,10 @@ infix operator ++ { associativity right precedence 145 }
 
 /// Concatenation of lists.
 func ++ <Element> (left: List<Element>, right: List<Element>) -> List<Element> {
-	let identity: List<Element> -> List<Element> = { $0 }
 	func swap(into: List<Element> -> List<Element>, each: Element) -> List<Element> -> List<Element> {
 		return { (x: List<Element>) -> List<Element> in into(List(each, rest: x)) }
 	}
-	let terminate = reduce(right, reduce(left, identity, swap), swap)
+	let terminate = reduce(right, reduce(left, { $0 }, swap), swap)
 	return terminate(List.Nil)
 }
 
