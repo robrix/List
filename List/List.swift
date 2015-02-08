@@ -34,35 +34,17 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 
 	/// Returns the head element, or `nil` if the receiver is empty.
 	public var head: Element? {
-		switch self {
-		case let Cons(head, _):
-			return head.value
-
-		case Nil:
-			return nil
-		}
+		return analysis { head, _ in head }
 	}
 
 	/// Returns the tail, i.e. the (possibly empty) list of elements following the head element.
 	public var tail: List {
-		switch self {
-		case let Cons(_, tail):
-			return tail.value
-
-		case Nil:
-			return nil
-		}
+		return analysis { _, tail in tail } ?? nil
 	}
 
 	/// `true` if the receiver is empty, `false` otherwise.
 	public var isEmpty: Bool {
-		switch self {
-		case Nil:
-			return true
-
-		default:
-			return false
-		}
+		return analysis { _, _ in false } ?? true
 	}
 
 	/// Case analysis.
