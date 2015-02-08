@@ -81,13 +81,10 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 	public func generate() -> GeneratorOf<Element> {
 		var list = self
 		return GeneratorOf {
-			switch list {
-			case let Cons(x, next):
-				list = next.value
-				return x.value
-			case .Nil:
-				return nil
-			}
+			list.analysis {
+				list = $1
+				return $0
+			} ?? nil
 		}
 	}
 
