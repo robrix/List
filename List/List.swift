@@ -75,6 +75,10 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 		} ?? nil
 	}
 
+	public func reduce<Result>(initial: Result, combine: (Result, Element) -> Result) -> Result {
+		return analysis { $1.reduce(combine(initial, $0), combine) } ?? initial
+	}
+
 
 	// MARK: NilLiteralConvertible
 
