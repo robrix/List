@@ -72,7 +72,7 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 	// MARK: Printable
 
 	public var description: String {
-		let joined = join(" ", map(self) { "\($0)" })
+		let joined = join(" ", lazy(self).map(toString))
 		return "(\(joined))"
 	}
 
