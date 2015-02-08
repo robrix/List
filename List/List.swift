@@ -62,6 +62,16 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 		}
 	}
 
+	public func analysis<T>(f: (Element, List) -> T) -> T? {
+		switch self {
+		case let Cons(head, tail):
+			return f(head.value, tail.value)
+
+		case Nil:
+			return nil
+		}
+	}
+
 
 	// MARK: NilLiteralConvertible
 
