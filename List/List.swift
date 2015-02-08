@@ -52,6 +52,16 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 		}
 	}
 
+	public var isEmpty: Bool {
+		switch self {
+		case Nil:
+			return true
+
+		default:
+			return false
+		}
+	}
+
 
 	// MARK: NilLiteralConvertible
 
