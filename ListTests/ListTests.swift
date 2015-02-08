@@ -23,4 +23,8 @@ class ListTests: XCTestCase {
 	func testMap() {
 		XCTAssertEqual(Array(List<Int>(0, List(1, List(2))).map(toString)), ["0", "1", "2"])
 	}
+
+	func testFilter() {
+		XCTAssertEqual(Array(List(elements: [0, 1, 2, 3]).filter { $0 % 2 == 0 }), [0, 2])
+	}
 }
