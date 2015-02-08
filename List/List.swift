@@ -1,7 +1,7 @@
 //  Copyright (c) 2014 Rob Rix. All rights reserved.
 
 /// A singly-linked lazy list.
-enum List<Element> {
+enum List<Element>: NilLiteralConvertible {
 	// MARK: Constructors
 
 	/// Nil case.
@@ -27,6 +27,13 @@ enum List<Element> {
 	/// N-ary list from a sequence.
 	init<S: SequenceType where S.Generator.Element == Element>(elements: S) {
 		self = List(generator: elements.generate())
+	}
+
+
+	// MARK: NilLiteralConvertible
+
+	init(nilLiteral: ()) {
+		self.init()
 	}
 
 
@@ -72,14 +79,6 @@ func ++ <Element> (left: List<Element>, right: List<Element>) -> List<Element> {
 	}
 	let terminate = reduce(right, reduce(left, { $0 }, swap), swap)
 	return terminate(nil)
-}
-
-
-/// Lists conform to NilLiteralConvertible.
-extension List: NilLiteralConvertible {
-	init(nilLiteral: ()) {
-		self.init()
-	}
 }
 
 
