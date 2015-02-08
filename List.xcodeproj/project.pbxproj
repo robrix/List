@@ -74,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				D40D2682195F198500BC535B /* List.h */,
+				D40D2699195F1A5200BC535B /* List.swift */,
 				D40D2680195F198500BC535B /* Supporting Files */,
 			);
 			path = List;
@@ -82,7 +83,6 @@
 		D40D2680195F198500BC535B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D40D2699195F1A5200BC535B /* List.swift */,
 				D40D2681195F198500BC535B /* Info.plist */,
 			);
 			name = "Supporting Files";
