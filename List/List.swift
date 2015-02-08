@@ -4,7 +4,7 @@
 public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 	// MARK: Constructors
 
-	/// Nil case.
+	/// Constructs an empty list.
 	public init() {
 		self = Nil
 	}
