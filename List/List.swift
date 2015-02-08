@@ -75,8 +75,7 @@ public func ++ <Element> (left: List<Element>, right: List<Element>) -> List<Ele
 	func swap(into: List<Element> -> List<Element>, each: Element) -> List<Element> -> List<Element> {
 		return { into(List(each, $0)) }
 	}
-	let terminate = reduce(right, reduce(left, { $0 }, swap), swap)
-	return terminate(nil)
+	return reduce(right, reduce(left, { $0 }, swap), swap)(nil)
 }
 
 
