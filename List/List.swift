@@ -62,6 +62,13 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 	}
 
 
+	// MARK: Higher-order functions
+
+	public func map<T>(transform: Element -> T) -> List<T> {
+		return analysis { List<T>(transform($0), $1.map(transform)) } ?? nil
+	}
+
+
 	// MARK: NilLiteralConvertible
 
 	public init(nilLiteral: ()) {
