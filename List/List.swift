@@ -11,17 +11,17 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 	
 	/// List of one element.
 	public init(_ element: Element) {
-		self = Cons(element, Box(nil))
+		self = Cons(Box(element), Box(nil))
 	}
 	
 	/// Prepending.
 	public init(_ element: Element, _ rest: List) {
-		self = Cons(element, Box(rest))
+		self = Cons(Box(element), Box(rest))
 	}
 	
 	/// N-ary list from a generator.
 	public init<G: GeneratorType where G.Element == Element>(var generator: G) {
-		self = generator.next().map { Cons($0, Box(List(generator: generator))) } ?? nil
+		self = generator.next().map { List($0, List(generator: generator)) } ?? nil
 	}
 	
 	/// N-ary list from a sequence.
@@ -53,7 +53,7 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 			switch list {
 			case let Cons(x, next):
 				list = next.value
-				return x
+				return x.value
 			case .Nil:
 				return nil
 			}
@@ -63,7 +63,7 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 
 	// MARK: Cases
 
-	case Cons(Element, Box<List>)
+	case Cons(Box<Element>, Box<List>)
 	case Nil
 }
 
