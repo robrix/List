@@ -11,8 +11,7 @@
 		D40D2689195F198500BC535B /* List.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D40D267D195F198500BC535B /* List.framework */; };
 		D40D2690195F198500BC535B /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D268F195F198500BC535B /* ListTests.swift */; };
 		D40D269A195F1A5200BC535B /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D2699195F1A5200BC535B /* List.swift */; };
-		D4F9F9E01A87029C00B7071E /* Box.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F9F9DF1A87029C00B7071E /* Box.framework */; };
-		D4F9F9E11A8702B700B7071E /* Box.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F9F9DF1A87029C00B7071E /* Box.framework */; };
+		D4E5C9241B5EED14003EF435 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E5C9231B5EED14003EF435 /* CoreFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,7 +32,7 @@
 		D40D268E195F198500BC535B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D40D268F195F198500BC535B /* ListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTests.swift; sourceTree = "<group>"; };
 		D40D2699195F1A5200BC535B /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
-		D4F9F9DF1A87029C00B7071E /* Box.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Box.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4E5C9231B5EED14003EF435 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4F9F9E01A87029C00B7071E /* Box.framework in Frameworks */,
+				D4E5C9241B5EED14003EF435 /* CoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,7 +49,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D40D2689195F198500BC535B /* List.framework in Frameworks */,
-				D4F9F9E11A8702B700B7071E /* Box.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +86,7 @@
 		D40D2680195F198500BC535B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D4F9F9DF1A87029C00B7071E /* Box.framework */,
+				D4E5C9231B5EED14003EF435 /* CoreFoundation.framework */,
 				D40D2681195F198500BC535B /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -167,7 +165,8 @@
 		D40D2674195F198500BC535B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Rob Rix";
 				TargetAttributes = {
 					D40D267C195F198500BC535B = {
@@ -262,6 +261,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -336,9 +336,11 @@
 				INFOPLIST_FILE = List/Info.plist;
 				INSTALL_PATH = "@rpath";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.antitypical.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -355,8 +357,10 @@
 				INFOPLIST_FILE = List/Info.plist;
 				INSTALL_PATH = "@rpath";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.antitypical.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
@@ -375,6 +379,7 @@
 				INFOPLIST_FILE = ListTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.antitypical.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -390,6 +395,7 @@
 				INFOPLIST_FILE = ListTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.antitypical.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -413,6 +419,7 @@
 				D40D2695195F198500BC535B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D40D2696195F198500BC535B /* Build configuration list for PBXNativeTarget "ListTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +428,7 @@
 				D40D2698195F198500BC535B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
