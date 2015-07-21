@@ -1,7 +1,7 @@
 //  Copyright (c) 2014 Rob Rix. All rights reserved.
 
 /// A singly-linked lazy list.
-public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
+public enum List<Element>: NilLiteralConvertible, CustomStringConvertible, SequenceType {
 	// MARK: Constructors
 
 	/// Constructs an empty list.
@@ -11,12 +11,12 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 	
 	/// List of one element.
 	public init(_ element: Element) {
-		self = Cons(Box(element), Box(nil))
+		self = Cons(element, nil)
 	}
 	
 	/// Prepending.
 	public init(_ element: Element, _ rest: List) {
-		self = Cons(Box(element), Box(rest))
+		self = Cons(element, rest)
 	}
 	
 	/// N-ary list from a generator.
@@ -54,7 +54,7 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 	public func analysis<T>(f: (Element, List) -> T) -> T? {
 		switch self {
 		case let Cons(head, tail):
-			return f(head.value, tail.value)
+			return f(head, tail)
 
 		case Nil:
 			return nil
@@ -75,7 +75,7 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 		} ?? nil
 	}
 
-	public func reduce<Result>(initial: Result, combine: (Result, Element) -> Result) -> Result {
+	public func reduce<Result>(initial: Result, _ combine: (Result, Element) -> Result) -> Result {
 		return analysis { $1.reduce(combine(initial, $0), combine) } ?? initial
 	}
 
@@ -90,16 +90,16 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 	// MARK: Printable
 
 	public var description: String {
-		let joined = join(" ", lazy(self).map(toString))
+		let joined = " ".join(lazy(self).map{ String($0) })
 		return "(\(joined))"
 	}
 
 
 	// MARK: SequenceType
 
-	public func generate() -> GeneratorOf<Element> {
+	public func generate() -> AnyGenerator<Element> {
 		var list = self
-		return GeneratorOf {
+		return anyGenerator {
 			list.analysis {
 				list = $1
 				return $0
@@ -110,7 +110,7 @@ public enum List<Element>: NilLiteralConvertible, Printable, SequenceType {
 
 	// MARK: Cases
 
-	case Cons(Box<Element>, Box<List>)
+	indirect case Cons(Element, List)
 	case Nil
 }
 
@@ -124,8 +124,3 @@ public func ++ <Element> (left: List<Element>, right: List<Element>) -> List<Ele
 	}
 	return right.reduce(left.reduce({ $0 }, swap), swap)(nil)
 }
-
-
-// MARK: - Imports
-
-import Box
